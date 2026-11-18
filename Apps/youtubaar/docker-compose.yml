@@ -1,0 +1,57 @@
+# Youtubaar: Sonarr-style watcher for YouTube channels and playlists.
+# The image tag is bumped by .github/workflows/bump.yml when a new 1.N image is published.
+name: youtubaar
+services:
+  app:
+    container_name: youtubaar
+    image: ghcr.io/mystikxkemix/youtubaar:1.12
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8085:8085"
+    environment:
+      DOWNLOADER: ytdlp
+      POLL_INTERVAL_MINUTES: "30"
+      YTDLP_CONCURRENCY: "1"
+      AUTH_PASSWORD: ""
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+      - /DATA/Media/YouTube:/downloads
+    x-casaos:
+      envs:
+        - container: AUTH_PASSWORD
+          description:
+            en_US: Basic auth password for the web UI (user "admin"); empty = no login
+        - container: POLL_INTERVAL_MINUTES
+          description:
+            en_US: Minutes between checks for new videos
+      volumes:
+        - container: /data
+          description:
+            en_US: Subscriptions, video list and yt-dlp (back it up)
+        - container: /downloads
+          description:
+            en_US: Downloaded videos, one folder per subscription (point a Jellyfin Shows library here)
+      ports:
+        - container: "8085"
+          description:
+            en_US: Web UI
+x-casaos:
+  id: io.github.mystikxkemix.youtubaar
+  architectures:
+    - amd64
+  main: app
+  author: mystikxkemix
+  developer: mystikxkemix
+  title:
+    en_US: Youtubaar
+  tagline:
+    en_US: Sonarr for YouTube channels and playlists
+  description:
+    en_US: Follow YouTube channels and playlists, pick or auto-download new videos with yt-dlp, and save them as Jellyfin shows.
+  icon: https://cdn.jsdelivr.net/gh/mystikxkemix/zimaos-appstore@main/Apps/youtubaar/icon.svg
+  thumbnail: ""
+  category: Media
+  port_map: "8085"
+  scheme: http
+  index: /

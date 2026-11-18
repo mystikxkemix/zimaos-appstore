@@ -1,0 +1,41 @@
+name: Bump images
+
+# Checks ghcr.io for newer 1.N images and commits the new tags, so ZimaOS offers
+# the update. Runs every hour, by hand, or when an app's CI sends "image-published".
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [image-published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - id: bump
+        run: |
+          changes=$(python3 scripts/bump_images.py)
+          echo "$changes"
+          {
+            echo "changes<<EOF"
+            echo "$changes"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - if: steps.bump.outputs.changes != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: bump images" -m "${{ steps.bump.outputs.changes }}"
+          git push
