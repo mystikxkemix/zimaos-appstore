@@ -4,7 +4,7 @@ name: youtubaar
 services:
   app:
     container_name: youtubaar
-    image: ghcr.io/mystikxkemix/youtubaar:1.13
+    image: ghcr.io/mystikxkemix/youtubaar:1.14
     restart: unless-stopped
     network_mode: bridge
     ports:
@@ -31,7 +31,7 @@ x-casaos:
   description:
     en_US: Follow YouTube channels and playlists, pick or auto-download new videos with yt-dlp, and save them as Jellyfin shows.
   icon: icon.svg
-  version: "1.13.0"
+  version: "1.14.0"
   repo: https://github.com/mystikxkemix/Youtubaar
   category: Media
   port_map: "8085"
