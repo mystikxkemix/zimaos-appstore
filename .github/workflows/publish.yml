@@ -1,0 +1,72 @@
+name: Publish store
+
+# 1. Raises each app to its newest public 1.N image (scripts/bump_images.py) and
+#    commits the change.
+# 2. Builds the v2 store with the official ZimaOS build action.
+# 3. Publishes dist/ to the gh-pages branch, served by GitHub Pages.
+# ZimaOS reads https://mystikxkemix.github.io/zimaos-appstore and offers an update
+# when an app's x-casaos.version goes up.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [image-published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+env:
+  BASE_URL: https://mystikxkemix.github.io/zimaos-appstore
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - id: bump
+        run: |
+          changes=$(python3 scripts/bump_images.py)
+          echo "$changes"
+          {
+            echo "changes<<EOF"
+            echo "$changes"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - if: steps.bump.outputs.changes != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: bump images" -m "${{ steps.bump.outputs.changes }}"
+          git push
+
+      # Nothing new on a scheduled run: keep the published store as it is.
+      - id: needed
+        run: echo "build=${{ github.event_name != 'schedule' || steps.bump.outputs.changes != '' }}" >> "$GITHUB_OUTPUT"
+
+      - if: steps.needed.outputs.build == 'true'
+        uses: IceWhaleTech/build-appstore-action@v1
+        with:
+          source: .
+          output: dist
+          base-url: ${{ env.BASE_URL }}
+
+      - if: steps.needed.outputs.build == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          force_orphan: true

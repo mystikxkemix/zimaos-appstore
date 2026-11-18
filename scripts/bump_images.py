@@ -2,8 +2,9 @@
 """Raise each app's ghcr.io image to its newest 1.N tag.
 
 Reads Apps/*/docker-compose.yml, asks ghcr.io (anonymous, so the package must be
-public) for the image's tags, and rewrites the line when a newer 1.N tag exists.
-ZimaOS then sees a new version of the app in this store and offers the update.
+public) for the image's tags, and when a newer 1.N tag exists rewrites the image
+line and x-casaos.version ("1.N.0", semver as the v2 store protocol wants).
+ZimaOS compares that version with the installed one and offers the update.
 Prints one line per change; exits 0 even when an image cannot be read.
 """
 import json
@@ -14,6 +15,7 @@ import urllib.request
 
 IMAGE = re.compile(r"^(\s*image:\s*ghcr\.io/)([\w.-]+/[\w.-]+):(\S+)\s*$", re.M)
 VERSION = re.compile(r"^1\.(\d+)$")
+APP_VERSION = re.compile(r'^(  version:\s*)"?[^"\n]*"?\s*$', re.M)
 
 
 def tags(repository: str) -> list[str]:
@@ -48,7 +50,11 @@ def main() -> int:
         current_match = VERSION.match(current)
         if latest is None or (current_match and int(latest[2:]) <= int(current_match.group(1))):
             continue
-        compose.write_text(text[: match.start()] + f"{match.group(1)}{repository}:{latest}\n" + text[match.end() + 1 :])
+        text = text[: match.start()] + f"{match.group(1)}{repository}:{latest}\n" + text[match.end() + 1 :]
+        text, count = APP_VERSION.subn(lambda found: f'{found.group(1)}"{latest}.0"', text, count=1)
+        if count == 0:
+            print(f"{compose}: no x-casaos version line to update", file=sys.stderr)
+        compose.write_text(text)
         print(f"{compose.parent.name} {current} -> {latest}")
     return 0
 

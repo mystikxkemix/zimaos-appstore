@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "store_id": "io.github.mystikxkemix.appstore",
+  "name": {
+    "en_US": "mystikxkemix apps"
+  },
+  "description": {
+    "en_US": "Youtubaar and SelfHoster, published from their own CI."
+  },
+  "maintainer": "mystikxkemix",
+  "url": "https://github.com/mystikxkemix/zimaos-appstore"
+}

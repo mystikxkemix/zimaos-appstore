@@ -12,18 +12,32 @@ A personal app store for ZimaOS / CasaOS with my own apps:
 App Store → **+** (add source) → paste:
 
 ```
-https://github.com/mystikxkemix/zimaos-appstore/archive/refs/heads/main.zip
+https://mystikxkemix.github.io/zimaos-appstore
 ```
 
-## Updates
+ZimaOS only accepts stores in the v2 protocol (a static site with `store.json` and
+`index.json`); a zip URL is refused with "Unsupported import method".
 
-Each app's CI publishes a `1.<number of commits>` image. The **Bump images** workflow
-checks ghcr.io every hour (or on demand), writes the newest `1.N` tag into the app's
-`docker-compose.yml` and commits it. ZimaOS then shows the update.
+## How it is built
 
-The images must be public: ZimaOS pulls them without a login, and so does the workflow.
+The **Publish store** workflow runs on every push, every hour and on demand:
+
+1. `scripts/bump_images.py` checks ghcr.io for a newer `1.N` image of each app, then
+   writes the image tag and `x-casaos.version` (`1.N.0`) and commits them.
+2. The official [`IceWhaleTech/build-appstore-action`](https://github.com/IceWhaleTech/build-appstore-action)
+   builds the v2 store into `dist/`.
+3. `dist/` goes to the `gh-pages` branch, served by GitHub Pages.
+
+ZimaOS offers an update when an app's `x-casaos.version` goes up. The images must be
+public: ZimaOS pulls them without a login, and so does the workflow.
 
 ## Layout
 
-CasaOS AppStore format: `Apps/<app>/docker-compose.yml` with an `x-casaos` block
-(title, icon, category, port), plus `category-list.json` and `recommend-list.json`.
+```
+Apps/<app>/docker-compose.yml   compose + top-level x-casaos metadata
+Apps/<app>/icon.svg
+store-config.json               store id, name, maintainer
+supported-languages.json
+```
+
+Format reference: [ZimaOS AppStore docs](https://github.com/IceWhaleTech/CasaOS-AppStore/tree/main/docs).
