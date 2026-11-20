@@ -7,7 +7,7 @@ name: bank-tracking
 services:
   app:
     container_name: bank-tracking
-    image: ghcr.io/mystikxkemix/bank-tracking:latest
+    image: ghcr.io/mystikxkemix/bank-tracking:1.6
     restart: unless-stopped
     network_mode: bridge
     ports:
@@ -35,7 +35,7 @@ x-casaos:
   description:
     en_US: Import bank statements (CSV/OFX), sort spending into categories, follow budgets and savings goals, and plan the monthly household split. Shared spaces with roles. UI in French. Needs a MongoDB.
   icon: icon.svg
-  version: "1.0.0"
+  version: "1.6.0"
   repo: https://github.com/mystikxkemix/bank-tracking
   category: Finance
   port_map: "8095"
