@@ -1,7 +1,8 @@
 # Family app API: shared lists, watchlist, places and events for the Family iPhone app.
 # Uses the MongoDB running on the ZimaOS host itself (no authentication), reached
 # through host.docker.internal; change MONGODB_URI in the app settings otherwise.
-# The first start writes a one-time setup code in the logs: the first account needs it.
+# ADMIN_USERNAME / ADMIN_PASSWORD create the first account (fill the password before
+# the first start). The app asks for a new password at the first login.
 # Secrets (APNs push keys, Radarr, Sonarr and Prowlarr URLs and API keys) go in
 # /DATA/AppData/family-api/data/settings.json, not in environment variables (see the
 # repo README). Without that file, push and media tools are off.
@@ -22,6 +23,9 @@ services:
     environment:
       MONGODB_URI: mongodb://host.docker.internal:27017
       MONGODB_DB: family-app
+      # First account, used only while the database has no account.
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: ""
       SESSION_TTL_DAYS: "180"
       # Header with the real client IP when behind a proxy (X-Real-IP, CF-Connecting-IP...).
       CLIENT_IP_HEADER: ""
