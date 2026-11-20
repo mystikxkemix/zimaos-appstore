@@ -7,6 +7,7 @@ A personal app store for ZimaOS / CasaOS with my own apps:
 | [Youtubaar](https://github.com/mystikxkemix/Youtubaar) | `ghcr.io/mystikxkemix/youtubaar` | 8085 |
 | [SelfHoster](https://github.com/mystikxkemix/self-hoster) | `ghcr.io/mystikxkemix/self-hoster` | 8090 |
 | [Bank tracking](https://github.com/mystikxkemix/bank-tracking) | `ghcr.io/mystikxkemix/bank-tracking` | 8095 |
+| [Family API](https://github.com/mystikxkemix/family-app) | `ghcr.io/mystikxkemix/family-api` | 8100 |
 
 ## Add it to ZimaOS
 
