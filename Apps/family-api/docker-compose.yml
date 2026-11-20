@@ -3,9 +3,11 @@
 # through host.docker.internal; change MONGODB_URI in the app settings otherwise.
 # ADMIN_USERNAME / ADMIN_PASSWORD create the first account (fill the password before
 # the first start). The app asks for a new password at the first login.
-# Secrets (APNs push keys, Radarr, Sonarr and Prowlarr URLs and API keys) go in
-# /DATA/AppData/family-api/data/settings.json, not in environment variables (see the
-# repo README). Without that file, push and media tools are off.
+# Secrets (APNs push keys, Radarr, Sonarr and Prowlarr URLs and API keys) live in
+# /DATA/AppData/family-api/data/settings.json, not in environment variables. Edit them
+# in the website's Admin page; for that the folder must belong to the container user:
+#   sudo chown -R 65532 /DATA/AppData/family-api/data
+# Without that file, push and media tools are off.
 # Make it public only through HTTPS (reverse proxy or tunnel), never plain HTTP.
 # The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
 name: family-api
@@ -30,7 +32,7 @@ services:
       # Header with the real client IP when behind a proxy (X-Real-IP, CF-Connecting-IP...).
       CLIENT_IP_HEADER: ""
     volumes:
-      - /DATA/AppData/$AppID/data:/data:ro
+      - /DATA/AppData/$AppID/data:/data
 x-casaos:
   id: io.github.mystikxkemix.family-api
   architectures:
@@ -43,11 +45,11 @@ x-casaos:
   tagline:
     en_US: Shared lists, watchlist, places and events
   description:
-    en_US: Backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Needs a MongoDB.
+    en_US: Website and backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Admin page for users and settings. Needs a MongoDB.
   icon: icon.svg
   version: "1.11.0"
   repo: https://github.com/mystikxkemix/family-app
   category: Utilities
   port_map: "8100"
   scheme: http
-  index: /healthz
+  index: /
