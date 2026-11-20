@@ -2,8 +2,9 @@
 # Uses the MongoDB running on the ZimaOS host itself (no authentication), reached
 # through host.docker.internal; change MONGODB_URI in the app settings otherwise.
 # The first start writes a one-time setup code in the logs: the first account needs it.
-# Push: put apns.json and the AuthKey_*.p8 files in /DATA/AppData/family-api/apns
-# (see the repo README). Without them, push is off.
+# Secrets (APNs push keys, Radarr, Sonarr and Prowlarr URLs and API keys) go in
+# /DATA/AppData/family-api/data/settings.json, not in environment variables (see the
+# repo README). Without that file, push and media tools are off.
 # Make it public only through HTTPS (reverse proxy or tunnel), never plain HTTP.
 # The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
 name: family-api
@@ -24,16 +25,8 @@ services:
       SESSION_TTL_DAYS: "180"
       # Header with the real client IP when behind a proxy (X-Real-IP, CF-Connecting-IP...).
       CLIENT_IP_HEADER: ""
-      APNS_CONFIG_FILE: /data/apns/apns.json
-      # Optional media tools: leave empty to turn them off.
-      RADARR_URL: ""
-      RADARR_API_KEY: ""
-      SONARR_URL: ""
-      SONARR_API_KEY: ""
-      PROWLARR_URL: ""
-      PROWLARR_API_KEY: ""
     volumes:
-      - /DATA/AppData/$AppID/apns:/data/apns:ro
+      - /DATA/AppData/$AppID/data:/data:ro
 x-casaos:
   id: io.github.mystikxkemix.family-api
   architectures:
