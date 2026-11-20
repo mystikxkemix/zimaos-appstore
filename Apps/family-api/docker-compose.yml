@@ -12,7 +12,7 @@ name: family-api
 services:
   app:
     container_name: family-api
-    image: ghcr.io/mystikxkemix/family-api:1.8
+    image: ghcr.io/mystikxkemix/family-api:1.11
     restart: unless-stopped
     network_mode: bridge
     ports:
@@ -45,7 +45,7 @@ x-casaos:
   description:
     en_US: Backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Needs a MongoDB.
   icon: icon.svg
-  version: "1.8.0"
+  version: "1.11.0"
   repo: https://github.com/mystikxkemix/family-app
   category: Utilities
   port_map: "8100"
