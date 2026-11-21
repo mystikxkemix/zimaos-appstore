@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "updated_at": "2026-11-21T00:47:56Z",
+  "app_count": 4,
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "apps": [
+    {
+      "id": "io.github.mystikxkemix.bank-tracking",
+      "title": "Bank tracking",
+      "tagline": "Spending, budgets and household split",
+      "category": "Finance",
+      "categories": [
+        "finance"
+      ],
+      "author": "mystikxkemix",
+      "developer": "mystikxkemix",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/io.github.mystikxkemix.bank-tracking/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/io.github.mystikxkemix.bank-tracking/docker-compose.yml",
+      "meta_url": "/apps/io.github.mystikxkemix.bank-tracking/meta.json",
+      "content_hash": "69127fbc",
+      "version": "1.10.0"
+    },
+    {
+      "id": "io.github.mystikxkemix.family-api",
+      "title": "Family API",
+      "tagline": "Shared lists, watchlist, places and events",
+      "category": "Utilities",
+      "categories": [
+        "utilities"
+      ],
+      "author": "mystikxkemix",
+      "developer": "mystikxkemix",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/io.github.mystikxkemix.family-api/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/io.github.mystikxkemix.family-api/docker-compose.yml",
+      "meta_url": "/apps/io.github.mystikxkemix.family-api/meta.json",
+      "content_hash": "c53f4cd8",
+      "version": "1.17.0"
+    },
+    {
+      "id": "io.github.mystikxkemix.self-hoster",
+      "title": "SelfHoster",
+      "tagline": "Host your own projects from git",
+      "category": "Developer",
+      "categories": [
+        "developer"
+      ],
+      "author": "mystikxkemix",
+      "developer": "mystikxkemix",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/io.github.mystikxkemix.self-hoster/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/io.github.mystikxkemix.self-hoster/docker-compose.yml",
+      "meta_url": "/apps/io.github.mystikxkemix.self-hoster/meta.json",
+      "content_hash": "897c9082",
+      "version": "1.18.0"
+    },
+    {
+      "id": "io.github.mystikxkemix.youtubaar",
+      "title": "Youtubaar",
+      "tagline": "Sonarr for YouTube channels and playlists",
+      "category": "Media",
+      "categories": [
+        "media"
+      ],
+      "author": "mystikxkemix",
+      "developer": "mystikxkemix",
+      "architectures": [
+        "amd64"
+      ],
+      "icon": "/apps/io.github.mystikxkemix.youtubaar/assets/icon.svg",
+      "thumbnail": "",
+      "compose_url": "/apps/io.github.mystikxkemix.youtubaar/docker-compose.yml",
+      "meta_url": "/apps/io.github.mystikxkemix.youtubaar/meta.json",
+      "content_hash": "2f0586ab",
+      "version": "1.19.0"
+    }
+  ]
+}

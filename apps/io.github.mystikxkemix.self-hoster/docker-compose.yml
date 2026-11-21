@@ -1,0 +1,28 @@
+# self-hoster: runs personal projects (services and static sites) cloned from git.
+# The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
+name: self-hoster
+services:
+  app:
+    container_name: self-hoster
+    image: ghcr.io/mystikxkemix/self-hoster:1.18
+    restart: unless-stopped
+    stop_grace_period: 30s
+    network_mode: host
+    environment:
+      SELFHOSTER_ADDR: ":8090"
+      SELFHOSTER_PORTS: "4000-4019"
+      SELFHOSTER_ADMIN_PASSWORD: change-me
+      SELFHOSTER_MCP_URL: ""
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+      - /DATA/AppData/$AppID/apps:/apps
+x-casaos:
+  id: io.github.mystikxkemix.self-hoster
+  main: app
+  title:
+    en_US: SelfHoster
+  icon: https://mystikxkemix.github.io/zimaos-appstore/apps/io.github.mystikxkemix.self-hoster/assets/icon.svg
+  version: "1.18.0"
+  port_map: "8090"
+  scheme: http
+  index: /

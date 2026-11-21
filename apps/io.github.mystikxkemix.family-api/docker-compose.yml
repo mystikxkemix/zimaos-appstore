@@ -1,0 +1,45 @@
+# Family app API: shared lists, watchlist, places and events for the Family iPhone app.
+# Uses the MongoDB running on the ZimaOS host itself (no authentication), reached
+# through host.docker.internal; change MONGODB_URI in the app settings otherwise.
+# ADMIN_USERNAME / ADMIN_PASSWORD create the first account (fill the password before
+# the first start). The app asks for a new password at the first login.
+# Secrets (APNs push keys, Radarr, Sonarr and Prowlarr URLs and API keys) live in
+# /DATA/AppData/family-api/data/settings.json, not in environment variables. Edit them
+# in the website's Admin page; for that the folder must belong to the container user:
+#   sudo chown -R 65532 /DATA/AppData/family-api/data
+# Without that file, push and media tools are off.
+# Make it public only through HTTPS (reverse proxy or tunnel), never plain HTTP.
+# The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
+name: family-api
+services:
+  app:
+    container_name: family-api
+    image: ghcr.io/mystikxkemix/family-api:1.17
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8100:8080"
+    # Lets the container reach the host (Linux needs this mapping).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MONGODB_URI: mongodb://host.docker.internal:27017
+      MONGODB_DB: family-app
+      # First account, used only while the database has no account.
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: ""
+      SESSION_TTL_DAYS: "180"
+      # Header with the real client IP when behind a proxy (X-Real-IP, CF-Connecting-IP...).
+      CLIENT_IP_HEADER: ""
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+x-casaos:
+  id: io.github.mystikxkemix.family-api
+  main: app
+  title:
+    en_US: Family API
+  icon: https://mystikxkemix.github.io/zimaos-appstore/apps/io.github.mystikxkemix.family-api/assets/icon.svg
+  version: "1.17.0"
+  port_map: "8100"
+  scheme: http
+  index: /

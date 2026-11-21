@@ -1,0 +1,29 @@
+# Youtubaar: Sonarr-style watcher for YouTube channels and playlists.
+# The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
+name: youtubaar
+services:
+  app:
+    container_name: youtubaar
+    image: ghcr.io/mystikxkemix/youtubaar:1.19@sha256:1f790f343932eacb99f60b8f19d9ac4f44714dc98ca6a1eede70d746e8715c88
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8085:8085"
+    environment:
+      DOWNLOADER: ytdlp
+      POLL_INTERVAL_MINUTES: "30"
+      YTDLP_CONCURRENCY: "1"
+      AUTH_PASSWORD: ""
+    volumes:
+      - /DATA/AppData/$AppID/data:/data
+      - /DATA/Media/YouTube:/downloads
+x-casaos:
+  id: io.github.mystikxkemix.youtubaar
+  main: app
+  title:
+    en_US: Youtubaar
+  icon: https://mystikxkemix.github.io/zimaos-appstore/apps/io.github.mystikxkemix.youtubaar/assets/icon.svg
+  version: "1.19.0"
+  port_map: "8085"
+  scheme: http
+  index: /

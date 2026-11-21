@@ -1,0 +1,22 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "mystikxkemix",
+  "developer": "mystikxkemix",
+  "tagline": "Host your own projects from git",
+  "description": "Clones, builds and runs personal services and static websites, one port each, with an admin UI and an MCP endpoint.",
+  "repo": "https://github.com/mystikxkemix/self-hoster",
+  "category": "Developer",
+  "title": "SelfHoster",
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "id": "io.github.mystikxkemix.self-hoster",
+  "version": "1.18.0",
+  "categories": [
+    "developer"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 196717098
+  }
+}

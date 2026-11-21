@@ -1,0 +1,33 @@
+# Bank tracking: spending, budgets, savings goals and the monthly household split.
+# Uses the MongoDB running on the ZimaOS host itself (no authentication), reached
+# through host.docker.internal; change MONGODB_URI in the app settings otherwise. The app
+# creates its indexes at start, and the first screen creates the admin account.
+# The image tag is bumped by .github/workflows/publish.yml when a new 1.N image is published.
+name: bank-tracking
+services:
+  app:
+    container_name: bank-tracking
+    image: ghcr.io/mystikxkemix/bank-tracking:1.10
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8095:8080"
+    # Lets the container reach the host (Linux needs this mapping).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MONGODB_URI: mongodb://host.docker.internal:27017
+      MONGODB_DB: bank-tracking
+      SESSION_TTL_DAYS: "30"
+      # true only when the app is reached over HTTPS (secure cookie, HSTS).
+      HTTPS: "false"
+x-casaos:
+  id: io.github.mystikxkemix.bank-tracking
+  main: app
+  title:
+    en_US: Bank tracking
+  icon: https://mystikxkemix.github.io/zimaos-appstore/apps/io.github.mystikxkemix.bank-tracking/assets/icon.svg
+  version: "1.10.0"
+  port_map: "8095"
+  scheme: http
+  index: /

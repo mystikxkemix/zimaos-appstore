@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "store_id": "io.github.mystikxkemix.appstore",
+  "name": "mystikxkemix apps",
+  "description": "Youtubaar, SelfHoster, Bank tracking and Family API, published from their own CI.",
+  "maintainer": "mystikxkemix",
+  "url": "https://github.com/mystikxkemix/zimaos-appstore"
+}

@@ -1,0 +1,4 @@
+ghcr.io/mystikxkemix/bank-tracking:1.10 sha256:255a56707bdbc813096ae1ffd85d8991e4cc5ea1496f5f5acfafcef156f6420e
+ghcr.io/mystikxkemix/family-api:1.17 sha256:40bddefa34c6de3fd0a125ce774244901e2e2ea1e4236b96b0bb26e6ef372413
+ghcr.io/mystikxkemix/self-hoster:1.18 sha256:b0dd5af90a1cbfd71d5be83151a587714a6339f5de8ca8fe655823a639e72a62
+ghcr.io/mystikxkemix/youtubaar:1.19 sha256:1f790f343932eacb99f60b8f19d9ac4f44714dc98ca6a1eede70d746e8715c88

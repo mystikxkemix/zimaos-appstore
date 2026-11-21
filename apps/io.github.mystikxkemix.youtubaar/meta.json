@@ -1,0 +1,22 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "mystikxkemix",
+  "developer": "mystikxkemix",
+  "tagline": "Sonarr for YouTube channels and playlists",
+  "description": "Follow YouTube channels and playlists, pick or auto-download new videos with yt-dlp, and save them as Jellyfin shows.",
+  "repo": "https://github.com/mystikxkemix/Youtubaar",
+  "category": "Media",
+  "title": "Youtubaar",
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "id": "io.github.mystikxkemix.youtubaar",
+  "version": "1.19.0",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 145045351
+  }
+}
