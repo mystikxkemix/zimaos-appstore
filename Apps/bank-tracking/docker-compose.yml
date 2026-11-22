@@ -36,6 +36,12 @@ x-casaos:
     en_US: Import bank statements (CSV/OFX), sort spending into categories, follow budgets and savings goals, and plan the monthly household split. Shared spaces with roles. UI in French. Needs a MongoDB.
   icon: icon.svg
   version: "1.10.0"
+  update_at: "2026-11-20"
+  release_notes:
+    en_US: |-
+      Changes since 1.8:
+      - Maintenance only, no visible change.
+      https://github.com/mystikxkemix/bank-tracking/compare/5c5f8b7...be70db7
   repo: https://github.com/mystikxkemix/bank-tracking
   category: Finance
   port_map: "8095"

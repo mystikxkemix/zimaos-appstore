@@ -1,7 +1,7 @@
 name: Publish store
 
-# 1. Raises each app to its newest public 1.N image (scripts/bump_images.py) and
-#    commits the change.
+# 1. Raises each app to its newest public 1.N image (scripts/bump_images.py), writes
+#    its release notes, and commits the change.
 # 2. Builds the v2 store with the official ZimaOS build action.
 # 3. Publishes dist/ to the gh-pages branch, served by GitHub Pages.
 # ZimaOS reads https://mystikxkemix.github.io/zimaos-appstore and offers an update
@@ -36,6 +36,9 @@ jobs:
           python-version: "3.13"
 
       - id: bump
+        env:
+          # Reads the app repositories for the release notes (60 calls per hour without it).
+          GH_TOKEN: ${{ github.token }}
         run: |
           changes=$(python3 scripts/bump_images.py)
           echo "$changes"
