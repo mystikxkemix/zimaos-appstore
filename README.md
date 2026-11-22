@@ -30,7 +30,22 @@ The **Publish store** workflow runs on every push, every hour and on demand:
    builds the v2 store into `dist/`.
 3. `dist/` goes to the `gh-pages` branch, served by GitHub Pages.
 
-ZimaOS offers an update when an app's `x-casaos.version` goes up. The images must be
+ZimaOS offers an update when an app's `x-casaos.version` goes up.
+
+### Release notes
+
+With each bump, the script also writes `x-casaos.release_notes` and `update_at`, so
+ZimaOS shows what changed. Nothing to do in the app repositories:
+
+- Each image gives its git commit and repository in its OCI labels
+  (`org.opencontainers.image.revision` and `.source`, set by `docker/metadata-action`).
+- The notes list the commits between the old image and the new one with a
+  conventional type: `feat` (New), `fix` (Fix), `perf` (Faster). Merges, `docs`,
+  `ci`, `chore`, `refactor`... are skipped. So write commit subjects for a reader.
+- An app without notes gets the notes of its current version (compared with the
+  previous `1.N` image). If the old commit is gone (rewritten history), the notes
+  only link to the commits.
+- Notes are in English (`en_US`), at most 15 lines, with a link to the full compare. The images must be
 public: ZimaOS pulls them without a login, and so does the workflow.
 
 ## Layout
