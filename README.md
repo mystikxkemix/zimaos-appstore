@@ -24,8 +24,8 @@ ZimaOS only accepts stores in the v2 protocol (a static site with `store.json` a
 
 The **Publish store** workflow runs on every push, every hour and on demand:
 
-1. `scripts/bump_images.py` checks ghcr.io for a newer `1.N` image of each app, then
-   writes the image tag and `x-casaos.version` (`1.N.0`) and commits them.
+1. `scripts/bump_images.py` checks ghcr.io for a newer `M.N` image of each app (compared as numbers, so `2.21` is newer than `1.37`), then
+   writes the image tag and `x-casaos.version` (`M.N.0`) and commits them. The apps tag their images `2.<merges into master>` (+1 per merged PR; it was `1.<all commits>` before).
 2. The official [`IceWhaleTech/build-appstore-action`](https://github.com/IceWhaleTech/build-appstore-action)
    builds the v2 store into `dist/`.
 3. `dist/` goes to the `gh-pages` branch, served by GitHub Pages.
@@ -43,7 +43,7 @@ ZimaOS shows what changed. Nothing to do in the app repositories:
   conventional type: `feat` (New), `fix` (Fix), `perf` (Faster). Merges, `docs`,
   `ci`, `chore`, `refactor`... are skipped. So write commit subjects for a reader.
 - An app without notes gets the notes of its current version (compared with the
-  previous `1.N` image). If the old commit is gone (rewritten history), the notes
+  previous `M.N` image). If the old commit is gone (rewritten history), the notes
   only link to the commits.
 - Notes are in English (`en_US`), at most 15 lines, with a link to the full compare. The images must be
 public: ZimaOS pulls them without a login, and so does the workflow.
