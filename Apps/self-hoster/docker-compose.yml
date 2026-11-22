@@ -4,7 +4,7 @@ name: self-hoster
 services:
   app:
     container_name: self-hoster
-    image: ghcr.io/mystikxkemix/self-hoster:1.18
+    image: ghcr.io/mystikxkemix/self-hoster:2.15
     restart: unless-stopped
     stop_grace_period: 30s
     network_mode: host
@@ -30,13 +30,13 @@ x-casaos:
   description:
     en_US: Clones, builds and runs personal services and static websites, one port each, with an admin UI and an MCP endpoint.
   icon: icon.svg
-  version: "1.18.0"
+  version: "2.15.0"
   update_at: "2026-11-22"
   release_notes:
     en_US: |-
-      Changes since 1.16:
-      - The list of changes is not available for this update.
-      https://github.com/mystikxkemix/self-hoster/commits/e10f906
+      Changes since 1.18:
+      - Maintenance only, no visible change.
+      https://github.com/mystikxkemix/self-hoster/compare/e10f906...c3d6c8c
   repo: https://github.com/mystikxkemix/self-hoster
   category: Developer
   port_map: "8090"
