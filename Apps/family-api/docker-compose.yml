@@ -14,7 +14,7 @@ name: family-api
 services:
   app:
     container_name: family-api
-    image: ghcr.io/mystikxkemix/family-api:1.27
+    image: ghcr.io/mystikxkemix/family-api:1.37
     restart: unless-stopped
     network_mode: bridge
     ports:
@@ -47,15 +47,16 @@ x-casaos:
   description:
     en_US: Website and backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Admin page for users and settings. Needs a MongoDB.
   icon: icon.svg
-  version: "1.27.0"
+  version: "1.37.0"
   update_at: "2026-11-22"
   release_notes:
     en_US: |-
-      Changes since 1.22:
-      - New: Test the connections to external services (api)
-      - New: Settings > Connections for admins (ios)
-      - New: Connections card in Admin > Status (web)
-      https://github.com/mystikxkemix/family-app/compare/b6d785b...a9a0f11
+      Changes since 1.27:
+      - New: IPad layout (ios)
+      - New: Jellyfin sync of what we have and what we watched (api)
+      - New: Jellyfin card in Admin, badge and details on the watchlist (web)
+      - New: On Jellyfin badge and Jellyfin lines on the details screen (ios)
+      https://github.com/mystikxkemix/family-app/compare/a9a0f11...027a3b7
   repo: https://github.com/mystikxkemix/family-app
   category: Utilities
   port_map: "8100"
