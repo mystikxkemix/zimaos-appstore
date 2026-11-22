@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Raise each app's ghcr.io image to its newest 1.N tag and write its release notes.
+"""Raise each app's ghcr.io image to its newest M.N tag and write its release notes.
 
 Reads Apps/*/docker-compose.yml, asks ghcr.io (anonymous, so the package must be
-public) for the image's tags, and when a newer 1.N tag exists rewrites the image
-line and x-casaos.version ("1.N.0", semver as the v2 store protocol wants).
+public) for the image's tags, and when a newer M.N tag exists rewrites the image
+line and x-casaos.version ("M.N.0", semver as the v2 store protocol wants).
+Tags are compared as (M, N): 2.21 is newer than 1.37. The apps' CI tags images
+2.<merges into master> (it was 1.<all commits> before).
 ZimaOS compares that version with the installed one and offers the update.
 
 It also writes x-casaos.release_notes (shown by ZimaOS with the update) and
@@ -11,7 +13,7 @@ x-casaos.update_at. The notes are the conventional commits (feat, fix, perf) of
 the app repository between the old image and the new one. Each image gives its
 commit and repository in its OCI labels (org.opencontainers.image.revision and
 .source, set by docker/metadata-action). An app without notes gets the notes of
-its current version, compared with the previous 1.N image.
+its current version, compared with the previous M.N image.
 
 Reading GitHub uses $GH_TOKEN when it is set (the workflow passes its token),
 otherwise anonymous calls (60 per hour).
@@ -27,7 +29,7 @@ import urllib.error
 import urllib.request
 
 IMAGE = re.compile(r"^(\s*image:\s*ghcr\.io/)([\w.-]+/[\w.-]+):(\S+)\s*$", re.M)
-VERSION = re.compile(r"^1\.(\d+)$")
+VERSION = re.compile(r"^(\d+)\.(\d+)$")
 APP_VERSION = re.compile(r'^(  version:\s*)"?[^"\n]*"?\s*$', re.M)
 # The update_at line and the release_notes block (its lines are indented by 4+ spaces).
 OLD_NOTES = re.compile(r'^  (?:update_at:.*|release_notes:.*(?:\n {4,}.*)*)\n', re.M)
@@ -57,8 +59,13 @@ def tags(repository: str, token: str) -> list[str]:
     return answer.get("tags") or []
 
 
-def numbers(candidates: list[str]) -> list[int]:
-    return sorted(int(match.group(1)) for tag in candidates if (match := VERSION.match(tag)))
+def numbers(candidates: list[str]) -> list[tuple[int, int]]:
+    """The M.N tags as sorted (M, N) pairs."""
+    return sorted((int(match.group(1)), int(match.group(2))) for tag in candidates if (match := VERSION.match(tag)))
+
+
+def tag(version: tuple[int, int]) -> str:
+    return f"{version[0]}.{version[1]}"
 
 
 def image_labels(repository: str, tag: str, token: str) -> dict[str, str]:
@@ -165,9 +172,9 @@ def main() -> int:
             continue
         if not available:
             continue
-        latest = f"1.{available[-1]}"
+        latest = tag(available[-1])
         current_match = VERSION.match(current)
-        bumped = current_match is None or available[-1] > int(current_match.group(1))
+        bumped = current_match is None or available[-1] > (int(current_match.group(1)), int(current_match.group(2)))
         has_notes = re.search(r"^  release_notes:", text, re.M) is not None
 
         if bumped:
@@ -182,8 +189,8 @@ def main() -> int:
         else:
             base = None
         if base is None:
-            older = [number for number in available if number < available[-1]]
-            base = f"1.{older[-1]}" if older else None
+            older = [version for version in available if version < available[-1]]
+            base = tag(older[-1]) if older else None
 
         change = f"{compose.parent.name} {current} -> {latest}" if bumped else f"{compose.parent.name} {latest} release notes"
         if base is not None:
