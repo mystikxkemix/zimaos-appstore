@@ -31,6 +31,12 @@ x-casaos:
     en_US: Clones, builds and runs personal services and static websites, one port each, with an admin UI and an MCP endpoint.
   icon: icon.svg
   version: "1.18.0"
+  update_at: "2026-11-22"
+  release_notes:
+    en_US: |-
+      Changes since 1.16:
+      - The list of changes is not available for this update.
+      https://github.com/mystikxkemix/self-hoster/commits/e10f906
   repo: https://github.com/mystikxkemix/self-hoster
   category: Developer
   port_map: "8090"

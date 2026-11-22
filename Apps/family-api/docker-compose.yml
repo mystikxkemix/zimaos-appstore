@@ -48,6 +48,14 @@ x-casaos:
     en_US: Website and backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Admin page for users and settings. Needs a MongoDB.
   icon: icon.svg
   version: "1.27.0"
+  update_at: "2026-11-22"
+  release_notes:
+    en_US: |-
+      Changes since 1.22:
+      - New: Test the connections to external services (api)
+      - New: Settings > Connections for admins (ios)
+      - New: Connections card in Admin > Status (web)
+      https://github.com/mystikxkemix/family-app/compare/b6d785b...a9a0f11
   repo: https://github.com/mystikxkemix/family-app
   category: Utilities
   port_map: "8100"
