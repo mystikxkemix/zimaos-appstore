@@ -52,7 +52,7 @@ x-casaos:
   release_notes:
     en_US: |-
       Changes since 1.27:
-      - New: IPad layout (ios)
+      - New: iPad layout (ios)
       - New: Jellyfin sync of what we have and what we watched (api)
       - New: Jellyfin card in Admin, badge and details on the watchlist (web)
       - New: On Jellyfin badge and Jellyfin lines on the details screen (ios)

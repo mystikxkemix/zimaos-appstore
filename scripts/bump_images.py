@@ -99,7 +99,11 @@ def note_lines(commits: list[dict]) -> list[str]:
         if match is None:
             continue
         kind, scope, text = match.groups()
-        line = f"- {KINDS[kind]}: {text[0].upper()}{text[1:]}"
+        # Capital first letter, but keep words like "iPad" or "macOS" as they are.
+        first = text.split(" ", 1)[0]
+        if first[1:] == first[1:].lower():
+            text = text[0].upper() + text[1:]
+        line = f"- {KINDS[kind]}: {text}"
         if scope:
             line += f" ({scope})"
         lines.append(line)
