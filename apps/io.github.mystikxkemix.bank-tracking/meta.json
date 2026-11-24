@@ -1,0 +1,24 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "mystikxkemix",
+  "developer": "mystikxkemix",
+  "tagline": "Spending, budgets and household split",
+  "description": "Import bank statements (CSV/OFX), sort spending into categories, follow budgets and savings goals, and plan the monthly household split. Shared spaces with roles. UI in French. Needs a MongoDB.",
+  "update_at": "2026-11-22",
+  "repo": "https://github.com/mystikxkemix/bank-tracking",
+  "category": "Finance",
+  "title": "Bank tracking",
+  "release_note": "Changes since 1.10:\n- Maintenance only, no visible change.\nhttps://github.com/mystikxkemix/bank-tracking/compare/be70db7...6b04486",
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "id": "io.github.mystikxkemix.bank-tracking",
+  "version": "2.6.0",
+  "categories": [
+    "finance"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 65341549
+  }
+}

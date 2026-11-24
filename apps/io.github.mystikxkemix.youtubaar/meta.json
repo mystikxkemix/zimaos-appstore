@@ -1,0 +1,24 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "mystikxkemix",
+  "developer": "mystikxkemix",
+  "tagline": "Sonarr for YouTube channels and playlists",
+  "description": "Follow YouTube channels and playlists, pick or auto-download new videos with yt-dlp, and save them as Jellyfin shows.",
+  "update_at": "2026-11-23",
+  "repo": "https://github.com/mystikxkemix/Youtubaar",
+  "category": "Media",
+  "title": "Youtubaar",
+  "release_note": "Changes since 2.20:\n- Fix: Fetch the title again for videos first seen without one\n- New: Ignore private videos until they are public\nhttps://github.com/mystikxkemix/Youtubaar/compare/883b0da...5d343c0",
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "id": "io.github.mystikxkemix.youtubaar",
+  "version": "2.21.0",
+  "categories": [
+    "media"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 145042215
+  }
+}

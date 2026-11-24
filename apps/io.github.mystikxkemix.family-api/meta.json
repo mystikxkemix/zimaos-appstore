@@ -1,0 +1,24 @@
+{
+  "architectures": [
+    "amd64"
+  ],
+  "author": "mystikxkemix",
+  "developer": "mystikxkemix",
+  "tagline": "Shared lists, watchlist, places and events",
+  "description": "Website and backend of the Family iPhone app. Grocery and to-do lists, a movie and TV watchlist (with optional Radarr, Sonarr and Prowlarr), places to try and events, shared in a household, with push notifications. Admin page for users and settings. Needs a MongoDB.",
+  "update_at": "2026-11-22",
+  "repo": "https://github.com/mystikxkemix/family-app",
+  "category": "Utilities",
+  "title": "Family API",
+  "release_note": "Changes since 1.37:\n- Maintenance only, no visible change.\nhttps://github.com/mystikxkemix/family-app/compare/027a3b7...0095b29",
+  "base_url": "https://mystikxkemix.github.io/zimaos-appstore",
+  "id": "io.github.mystikxkemix.family-api",
+  "version": "2.22.0",
+  "categories": [
+    "utilities"
+  ],
+  "min_memory": 0,
+  "min_image_size": {
+    "amd64": 5806731
+  }
+}
