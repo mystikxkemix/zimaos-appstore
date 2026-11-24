@@ -4,7 +4,7 @@ name: youtubaar
 services:
   app:
     container_name: youtubaar
-    image: ghcr.io/mystikxkemix/youtubaar:2.20
+    image: ghcr.io/mystikxkemix/youtubaar:2.21
     restart: unless-stopped
     network_mode: bridge
     ports:
@@ -31,13 +31,14 @@ x-casaos:
   description:
     en_US: Follow YouTube channels and playlists, pick or auto-download new videos with yt-dlp, and save them as Jellyfin shows.
   icon: icon.svg
-  version: "2.20.0"
-  update_at: "2026-11-22"
+  version: "2.21.0"
+  update_at: "2026-11-23"
   release_notes:
     en_US: |-
-      Changes since 1.19:
-      - Maintenance only, no visible change.
-      https://github.com/mystikxkemix/Youtubaar/compare/f81e9c3...883b0da
+      Changes since 2.20:
+      - Fix: Fetch the title again for videos first seen without one
+      - New: Ignore private videos until they are public
+      https://github.com/mystikxkemix/Youtubaar/compare/883b0da...5d343c0
   repo: https://github.com/mystikxkemix/Youtubaar
   category: Media
   port_map: "8085"
